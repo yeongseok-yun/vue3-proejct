@@ -1,10 +1,13 @@
 <template>
     <div class="name">
       {{name}}
-      <!--함수호출-->
-      {{greeting(name) }}
     </div>
-    <div>Hi</div>
+    <button 
+      class = "btn btn-primary"
+      @click="consoleLog(name)"
+    >
+    클릭
+    </button>
 </template>
 
 <script>
@@ -12,13 +15,16 @@ export default {
   setup(){
     const name = 'Soko coder'
 
-    const greeting = (name) => {
-      return 'Hello, ' + name;
-    };
-
+    // const greeting = (name) => {
+    //   return 'Hello, ' + name;
+    // };
+    const consoleLog = (msg) => {
+      console.log(msg)
+    }
     return {
-      name
-      ,greeting
+      name,
+      consoleLog
+    //  ,greeting
     }
   }
 }
