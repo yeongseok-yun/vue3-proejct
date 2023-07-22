@@ -1,11 +1,12 @@
 <template>
-    <div class="name">
-      {{name}}
-    </div>
-    <input type="text" :value = name>
+    <input 
+      type="text" 
+      :value = "name"
+      @input="updateName"
+    >
     <button 
       class = "btn btn-primary"
-      @click="updateName()"
+      @click="onSubmit()"
     >
     클릭
     </button>
@@ -16,18 +17,20 @@ import { ref } from 'vue';
 export default {
   setup(){
     const name = ref('Soko coder');
-
-    // const greeting = (name) => {
-    //   return 'Hello, ' + name;
-    // };
-    const updateName = () => {
-      name.value = 'Soko coder1'
-      console.log(name)
+    
+    const onSubmit = () => {
+      console.log(name.value)
     }
+
+    const updateName = (e) => {
+      console.log(e.target.value)
+      name.value = e.target.value;
+    }
+
     return {
       name,
-      updateName
-    //  ,greeting
+      onSubmit,
+      updateName,
     }
   }
 }
@@ -36,5 +39,8 @@ export default {
 <style>
 .name{
   color : red;
+}
+.name1{
+  color : green;
 }
 </style>
