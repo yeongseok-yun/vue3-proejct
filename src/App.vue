@@ -2,7 +2,7 @@
   <div class="container">
     <h2>To-Do List</h2>
     <form 
-    @submit="onSubmit"
+    @submit.prevent="onSubmit"
       class="d-flex"
       >
       <div class="flex-grow-1 mr-2">
@@ -34,8 +34,7 @@ export default {
     const todo = ref('');
     const todos = ref([]);
     
-    const onSubmit = (e) => {
-      e.preventDefault();
+    const onSubmit = () => {
       todos.value.push({
         id: Date.now(),
         subject : todo.value
