@@ -2,7 +2,7 @@
     <div class="name">
       {{name}}
       <!--함수호출-->
-      {{greeting() }}
+      {{greeting('ppt') }}
     </div>
     <div>Hi</div>
 </template>
@@ -12,8 +12,8 @@ export default {
   setup(){
     const name = 'Soko coder'
 
-    const greeting = () => {
-      return 'Hello'
+    const greeting = (name) => {
+      return 'Hello, ' + name;
     };
 
     return {
