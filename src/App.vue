@@ -1,8 +1,7 @@
 <template>
     <input 
       type="text" 
-      :value = "name"
-      @input="updateName"
+      v-model = "name"
     >
     <button 
       class = "btn btn-primary"
@@ -22,15 +21,10 @@ export default {
       console.log(name.value)
     }
 
-    const updateName = (e) => {
-      console.log(e.target.value)
-      name.value = e.target.value;
-    }
 
     return {
       name,
       onSubmit,
-      updateName,
     }
   }
 }
