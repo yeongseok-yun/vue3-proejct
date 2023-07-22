@@ -39,7 +39,7 @@
             v-model = "todo.completed"  
           >
           <label 
-            :style="todo.completed ? todoStyle : {}"
+            :class="{todo : todo.completed}"
             class="form-check-label"
             for=""
           >
@@ -90,10 +90,8 @@ export default {
 </script>
 
 <style>
-.name{
-  color : red;
-}
-.name1{
-  color : green;
+.todo{
+  color:gray;
+  text-decoration: line-through;
 }
 </style>
