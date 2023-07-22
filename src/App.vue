@@ -39,6 +39,7 @@
             v-model = "todo.completed"  
           >
           <label 
+            :style="todo.completed ? todoStyle : {}"
             class="form-check-label"
             for=""
           >
@@ -57,7 +58,10 @@ export default {
     const todo = ref('');
     const todos = ref([]);
     const hasError = ref(false);
-    
+    const todoStyle = {
+      textDecoration : 'line-through',
+      color : 'gray'
+    };
     const onSubmit = () => {
       if(todo.value === ''){
         hasError.value = true
@@ -78,7 +82,8 @@ export default {
       todo,
       todos,
       onSubmit,
-      hasError
+      hasError,
+      todoStyle
     }
   }
 }
