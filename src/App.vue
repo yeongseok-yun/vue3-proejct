@@ -2,7 +2,7 @@
     <div class="name">
       {{name}}
       <!--함수호출-->
-      {{greeting('ppt') }}
+      {{greeting(name) }}
     </div>
     <div>Hi</div>
 </template>
