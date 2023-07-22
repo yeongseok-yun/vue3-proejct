@@ -24,10 +24,7 @@
         <div>
           <button 
             class="btn btn-danger btn-sm"
-            @click = "toggleTodo({
-                                    index : index,
-                                    id : todo.id
-                                    })"
+            @click = "toggleTodo(index)"
             >
             삭제
           </button>
@@ -45,8 +42,8 @@ export default {
         }
     },
     setup(props,context){
-        const toggleTodo = (todoObj) => {
-            context.emit('toggle-todo',todoObj);
+        const toggleTodo = (index) => {
+            context.emit('toggle-todo',index);
         }
         return {
             toggleTodo

@@ -28,9 +28,8 @@ export default {
       todos.value.push(todo)
     }
     
-    const deleteTodo = (todoObj) => {
-      todos.value.splice(todoObj.index,1);
-      console.log(todoObj.id)
+    const deleteTodo = (index) => {
+      todos.value.splice(index,1);
 
     }
 
