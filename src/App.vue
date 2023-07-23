@@ -35,20 +35,27 @@ export default {
     
     const todos = ref([]);
     const error = ref('');
-    const addTodo = (todo) =>{
+    const addTodo = async (todo) =>{
       console.log(todo)
       //db 저장
       error.value = '';
-      axios.post('http://localhost:3000/todos',{
-        subject : todo.subject,
-        completed : todo.completed,
-      }).then(res =>{
-        console.log(res);
+      try {
+        const res = await axios.post('http://localhost:3000/todos',{
+          subject : todo.subject,
+          completed : todo.completed,
+        })  
         todos.value.push(res.data);
-      }).catch(err => {
-        console.log(err);
+      } catch (err) {
         error.value = '예기치 못한 에러가 발생했습니다.'
-      });
+      }
+      
+      // .then(res =>{
+      //   console.log(res);
+      //   todos.value.push(res.data);
+      // }).catch(err => {
+      //   console.log(err);
+      //   error.value = '예기치 못한 에러가 발생했습니다.'
+      // });
       
     }
     
