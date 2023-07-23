@@ -25,6 +25,7 @@
             <a 
               class="page-link" 
               @click = "getTodos(currentPage - 1)"
+              style = "cursor:pointer"
             >Previous
             </a>
           </li>
@@ -35,7 +36,11 @@
             class="page-item"
             :class="currentPage === page ? 'active' : ''"
           >
-            <a class="page-link" @click = "getTodos(page)">{{ page }}</a>
+            <a 
+              class="page-link" 
+              @click = "getTodos(page)"
+              style = "cursor:pointer"
+            >{{ page }}</a>
           </li>
           
           <li v-if="numberOfPages !== currentPage" class="page-item">
@@ -43,6 +48,7 @@
               class="page-link" 
               href="#"
               @click = "getTodos(currentPage + 1)"
+              style = "cursor:pointer"
             >Next
             </a>
           </li>
