@@ -9,6 +9,7 @@
     >
     <hr>
     <TodoSimpleForm @add-todo="addTodo" />
+    <div style="color:red;">{{ error }}</div>
     <div v-if="!filtedTodos.length">
       등록 된 Todo가 없습니다.
     </div>
@@ -23,6 +24,8 @@
 import { ref, computed } from 'vue';
 import TodoSimpleForm from './components/TodoSimpleForm.vue';
 import TodoList from './components/TodoList.vue';
+import axios from 'axios';
+
 export default {
   components:{
     TodoSimpleForm,
@@ -31,10 +34,22 @@ export default {
   setup(){
     
     const todos = ref([]);
-    
+    const error = ref('');
     const addTodo = (todo) =>{
       console.log(todo)
-      todos.value.push(todo)
+      //db 저장
+      error.value = '';
+      axios.post('http://localhost:3000/todos',{
+        subject : todo.subject,
+        completed : todo.completed,
+      }).then(res =>{
+        console.log(res);
+        todos.value.push(res.data);
+      }).catch(err => {
+        console.log(err);
+        error.value = '예기치 못한 에러가 발생했습니다.'
+      });
+      
     }
     
     const toggleTodo = (index) =>{
@@ -59,6 +74,7 @@ export default {
       deleteTodo,
       searchText,
       filtedTodos,
+      error,
     }
   }
 }
