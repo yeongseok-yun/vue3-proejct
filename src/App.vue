@@ -35,6 +35,19 @@ export default {
     
     const todos = ref([]);
     const error = ref('');
+
+
+    const getTodos = async () => {
+      try {
+        const res =await axios.get('http://localhost:3000/todos')  
+        todos.value = res.data
+      } catch (err) {
+        error.value = '예기치 못한 에러가 발생했습니다.'
+      }
+    }
+
+    getTodos();
+
     const addTodo = async (todo) =>{
       console.log(todo)
       //db 저장
@@ -62,8 +75,15 @@ export default {
     const toggleTodo = (index) =>{
       todos.value[index].completed = !todos.value[index].completed;
     }
-    const deleteTodo = (index) => {
-      todos.value.splice(index,1);
+    const deleteTodo = async (index) => {
+      const id = todos.value[index].id;
+      try {
+        await axios.delete('http://localhost:3000/todos/' + id);  
+        todos.value.splice(index,1);
+      } catch (err) {
+        error.value = '예기치 못한 에러가 발생했습니다.'
+      }
+      
     }
     const searchText = ref('');
     const filtedTodos = computed(() => {
