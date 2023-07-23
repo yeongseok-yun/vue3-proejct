@@ -10,7 +10,7 @@
           <input 
             class="form-check-input"
             type="checkbox"
-            v-value = "todo.completed"  
+            :checked = "todo.completed"  
             @change="toggleTodo(index)"
           >
           <label 

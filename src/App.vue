@@ -17,7 +17,29 @@
       @toggle-todo = "toggleTodo" 
       @delete-todo = "deleteTodo"
     />
+    <hr />
+    <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li v-if="currentPage !==1" class="page-item">
+          <a class="page-link" href="#">Previous</a>
+        </li>
+        
+        <li
+          v-for="page in numberOfPages" 
+          :key="page"
+          class="page-item"
+          :class="currentPage === page ? 'active' : ''"
+        >
+          <a class="page-link" href="#">{{ page }}</a>
+        </li>
+        
+        <li v-if="numberOfPages !== currentPage" class="page-item">
+          <a class="page-link" href="#">Next</a>
+        </li>
+      </ul>
+    </nav>
   </div>
+
 </template>
 
 <script>
@@ -35,11 +57,21 @@ export default {
     
     const todos = ref([]);
     const error = ref('');
+    const numberOfTodos = ref(0);
+    const limit = 5;
+    const currentPage = ref(1);
+    
+    const numberOfPages = computed(() =>{
+      return Math.ceil(numberOfTodos.value/limit);
+    });
 
 
     const getTodos = async () => {
       try {
-        const res =await axios.get('http://localhost:3000/todos')  
+        const res =await axios.get(
+          `http://localhost:3000/todos?_page=${currentPage.value}&_limit=${limit}`
+        );  
+        numberOfTodos.value = res.headers['x-total-count']
         todos.value = res.data
       } catch (err) {
         error.value = '예기치 못한 에러가 발생했습니다.'
@@ -72,10 +104,21 @@ export default {
       
     }
     
-    const toggleTodo = (index) =>{
-      todos.value[index].completed = !todos.value[index].completed;
+    const toggleTodo = async (index) =>{
+      error.value = ''
+      const id = todos.value[index].id;
+      try {
+        await axios.patch('http://localhost:3000/todos/' + id,{
+          completed : !todos.value[index].completed
+        });
+        todos.value[index].completed = !todos.value[index].completed;  
+      } catch (error) {
+        error.value = '예기치 못한 에러가 발생했습니다.'
+      }
+      
     }
     const deleteTodo = async (index) => {
+      error.value = ''
       const id = todos.value[index].id;
       try {
         await axios.delete('http://localhost:3000/todos/' + id);  
@@ -102,6 +145,8 @@ export default {
       searchText,
       filtedTodos,
       error,
+      numberOfPages,
+      currentPage,
     }
   }
 }
