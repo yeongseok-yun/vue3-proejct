@@ -78,13 +78,14 @@ export default {
     const limit = 5;
     const currentPage = ref(1);
     const a = reactive({
-      b:1
+      b:1,
+      c:3
     })
-    watch(() => a.b,(current,prev)=>{
+    watch(() => [a.b,a.c],(current,prev)=>{
       console.log(current,prev)
     })
     a.b =2;
-    watch(currentPage,(currentPage,prev)=> {
+    watch([currentPage, numberOfTodos],(currentPage,prev)=> {
       console.log(currentPage,prev)
     })
     const numberOfPages = computed(() =>{
